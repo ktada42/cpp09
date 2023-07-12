@@ -21,9 +21,9 @@ public:
 	GregorianDate(const GregorianDate& date);
 	~GregorianDate();
 	GregorianDate& operator=(const GregorianDate& date);
-	bool operator<(const GregorianDate& date);
-	bool operator==(const GregorianDate& date);
-	bool operator>(const GregorianDate& date);
+	bool operator<(const GregorianDate& date) const;
+	bool operator==(const GregorianDate& date) const;
+	bool operator>(const GregorianDate& date) const;
 	int operator-(const GregorianDate& date);
 	GregorianDate& operator++();
 	GregorianDate& operator--();

@@ -86,7 +86,7 @@ GregorianDate& GregorianDate::operator=(const GregorianDate& date)
 	return *this;
 }
 
-bool GregorianDate::operator<(const GregorianDate& date)
+bool GregorianDate::operator<(const GregorianDate& date)  const
 {
 	int r_year = date.getYear();
 	int r_month = date.getMonth();
@@ -101,7 +101,7 @@ bool GregorianDate::operator<(const GregorianDate& date)
 	return false;
 }
 
-bool GregorianDate::operator==(const GregorianDate& date)
+bool GregorianDate::operator==(const GregorianDate& date)  const
 {
 	int r_year = date.getYear();
 	int r_month = date.getMonth();
@@ -109,7 +109,7 @@ bool GregorianDate::operator==(const GregorianDate& date)
 	return year == r_year && month == r_month && day == r_day;
 }
 
-bool GregorianDate::operator>(const GregorianDate& date)
+bool GregorianDate::operator>(const GregorianDate& date)  const
 {
 	return !(*this < date) && !(*this == date);
 }
