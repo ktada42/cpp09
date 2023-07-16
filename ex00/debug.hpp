@@ -1,7 +1,6 @@
 #ifndef DEBUG_HPP
 #define DEBUG_HPP
 
-#include <map>
 #include <iostream>
 #include <fstream>
 #include <sstream>
