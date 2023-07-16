@@ -11,8 +11,6 @@ int main(int argc, char **argv)
 	}
 	try
 	{
-		//todo data.csvないとき
-		//input.txtない時
 		bitcoinExchange("./data.csv", argv[1]);
 	}
 	catch(const std::exception& e)
