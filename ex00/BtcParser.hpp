@@ -15,6 +15,7 @@
 enum ParseResult{
 	success,
 	badInput,
+	inValidDate,
 	notAPositiveNumber,
 	tooLargeANumber,
 	tooManyDigits,

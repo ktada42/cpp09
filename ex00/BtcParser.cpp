@@ -81,7 +81,14 @@ static ParseResult tryParseDate(std::string s, GregorianDate& result)
 		deb("csv "+s + "date has no numeric error");
 		return badInput;
 	}
-	result = GregorianDate(stoi(strYear), stoi(strMonth), stoi(strDay));
+	int year = stoi(strYear);
+	int month = stoi(strMonth);
+	int day = stoi(strDay);
+	if (!isValidGregorianDate(year, month, day))
+	{
+		return inValidDate;
+	}
+	result = GregorianDate(year, month, day);
 	return success;
 }
 
@@ -173,6 +180,10 @@ std::string getBtcErrMsg(std::string line, ParseResult result)
 	else if (result == tooManyDigits)
 	{
 		return "Error: too many digits number.";
+	}
+	else if (result == inValidDate)
+	{
+		return "Error: invalid date. date must exist and gregorian date.";
 	}
 	else
 	{
