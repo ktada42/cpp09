@@ -1,8 +1,9 @@
-#ifndef DATE_HPP
-#define DATE_HPP
+#ifndef GREGORIAN_DATE_HPP
+#define GREGORIAN_DATE_HPP
 
 #include <iostream>
 #include <exception>
+#include <sstream>
 
 
 const int gregorianStartYear = 1582;
@@ -15,7 +16,7 @@ class GregorianDate{
 	int year;
 	int month;
 	int day;
-	int calcDays(const GregorianDate& date);
+	int calcDays(const GregorianDate& date)const;
 public:
 	GregorianDate(int year, int month, int day);
 	GregorianDate(const GregorianDate& date);
@@ -24,7 +25,7 @@ public:
 	bool operator<(const GregorianDate& date) const;
 	bool operator==(const GregorianDate& date) const;
 	bool operator>(const GregorianDate& date) const;
-	int operator-(const GregorianDate& date);
+	int operator-(const GregorianDate& date) const;
 	GregorianDate& operator++();
 	GregorianDate& operator--();
 	int getYear() const;
@@ -34,5 +35,5 @@ public:
 
 std::ostream& operator<<(std::ostream& os, const GregorianDate& date);
 bool isValidGregorianDate(int year, int month, int day);
-
-#endif // DATE_HPP
+std::string to_string(const GregorianDate& date);
+#endif // GREGORIAN_DATE_HPP

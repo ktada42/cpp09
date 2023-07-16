@@ -1,4 +1,4 @@
-#include "Date.hpp"
+#include "GregorianDate.hpp"
 
 //年月日が存在するかは考慮せず、明らかに1582年10月15日より前か判定する
 static bool isPastGregorian(int year, int month, int day)
@@ -49,7 +49,7 @@ bool isValidGregorianDate(int year, int month, int day)
 
 std::ostream& operator<<(std::ostream& os, const GregorianDate& date)
 {
-	 os << date.getYear() << "/" << date.getMonth() << "/" << date.getDay();
+	 os << date.getYear() << "-" << date.getMonth() << "-" << date.getDay();
     return os;
 }
 
@@ -168,7 +168,7 @@ GregorianDate& GregorianDate::operator--()
 	
 
 //1/1/1をグレゴリオ暦とみなした時の経過日数を返す
-int GregorianDate::calcDays(const GregorianDate& date)
+int GregorianDate::calcDays(const GregorianDate& date) const
 {
 	int y = date.getYear();
 	int m = date.getMonth();
@@ -184,7 +184,7 @@ int GregorianDate::calcDays(const GregorianDate& date)
 	return yearSum + uruCnt  + monthSum + daySum;
 }
 
-int GregorianDate::operator-(const GregorianDate& date)
+int GregorianDate::operator-(const GregorianDate& date) const
 {
 	return  calcDays(*this) - calcDays(date);
 }
@@ -204,6 +204,12 @@ int GregorianDate::getDay() const
 	return day;
 }
 
+std::string to_string(const GregorianDate& date)
+{
+	std::stringstream ss;
+	ss<<date;
+	return ss.str();
+}
 /*
 int calcDec(GregorianDate a, GregorianDate b)
 {

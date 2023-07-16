@@ -1,8 +1,7 @@
 NAME = btc
 
-SRCS = main.cpp Date.cpp
+SRCS = BtcDataBase.cpp BtcParser.cpp debug.cpp GregorianDate.cpp main.cpp BitcoinExchange.cpp
 OBJS = $(SRCS:%.cpp=%.o)
-
 CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98

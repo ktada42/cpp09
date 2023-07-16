@@ -1,5 +1,8 @@
-#ifndef BITCOINEXCHANGE_CPP
-#define BITCOINEXCHANGE_CPP
+#ifndef BITCOIN_EXCHANGE_HPP
+#define BITCOIN_EXCHANGE_HPP
+#include "GregorianDate.hpp"
+#include "BtcDataBase.hpp"
+#include <vector>
 
 #include <map>
 #include <iostream>
@@ -7,7 +10,11 @@
 #include <sstream>
 #include <stdlib.h>
 #include <string.h>
+#include <deque>
 #include <stdlib.h>
 #include <iterator>
+#include "BtcParser.hpp"
 
-#endif
+void bitcoinExchange(std::string dataBasePath, std::string inputPath);
+
+#endif // BITCOIN_EXCHANGE_HPP
