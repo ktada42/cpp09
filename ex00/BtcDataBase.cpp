@@ -8,7 +8,6 @@ void BtcDataBase::print()
 	}
 }
 
-//todo catch
 void BtcDataBase::addData(const GregorianDate& date, double btcVal)
 {
 	if (map.find(date) != map.end())
