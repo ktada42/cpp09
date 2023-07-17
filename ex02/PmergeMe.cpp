@@ -12,3 +12,19 @@ std::vector<size_t> getJakobNumbers(size_t limit)
 	}
 	return jakobs;
 }
+
+
+//vector前提
+void mergeInsertSort(std::vector<int> &a)
+{
+	std::vector<Pairable<int> > pa;
+	for (size_t i = 0; i < a.size(); i++)
+	{
+		pa.push_back(Pairable<int>(a[i]));
+	}
+	mergeInsertSort(pa);
+	for (size_t i = 0; i < a.size(); i++)
+	{
+		a[i] = pa[i].largeVal;
+	}
+}

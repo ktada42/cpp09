@@ -43,5 +43,54 @@ void insertMerge(std::vector<Value>& larger, std::vector<Value>& smaller)
 	}
 }
 
+template<class T>
+std::vector<Pairable<T> > getPairedVector(const std::vector<T> &s)
+{
+	typedef Pairable<T> PT;
+	assert(s.size()%2 == 0 || s.size() == 1);
+	std::vector<PT> paired;
+	for (size_t i = 0; i < s.size(); i += 2)
+	{
+		paired.push_back(PT(s[i], s[i+1]));
+	}
+	return paired;
+}
 
+template<class T>
+void splitPairedVector(std::vector<Pairable<T> >&s, std::vector<T>& a, std::vector<T>&b)
+{
+	a.clear();
+	b.clear();
+	for (size_t i = 0; i < s.size(); i++)
+	{
+		a.push_back(s[i].vals[0]);
+		b.push_back(s[i].vals[1]);
+	}
+}
+
+template<class _V>
+void mergeInsertSort(std::vector<Pairable<_V> > &s)
+{
+	typedef Pairable<_V> T;
+	typedef Pairable<T>  PT;
+	if (s.size() <= 1)
+	{
+		return ;
+	}
+	std::cout << "s :"<<s << std::endl;
+ 	std::vector<PT> ab = getPairedVector(s);
+	std::cout <<"ab :"<< ab << std::endl;
+	//mergeInsertSort(ab);
+	std::vector<T> a, b;
+	splitPairedVector(ab, a, b);
+	std::cout << "a : "<<a << std::endl;
+	std::cout << "b : "<<b << std::endl;
+	//todo aがソートされている前提
+	insertMerge(a, b);
+	s = a;
+	std::cout << "s : "<<s << std::endl;
+}
+
+//vector前提
+void mergeInsertSort(std::vector<int> &a);
 #endif // P_MERGE_ME_HPP
