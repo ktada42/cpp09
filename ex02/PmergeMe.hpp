@@ -96,8 +96,11 @@ void mergeInsertSort(std::vector<T > &s, int dep)
 	{
 		return ;
 	}
-	std::string tab(dep * 4, ' ');
-	std::cout <<tab<< "prv :"<<s << std::endl;
+	if (DEBUG)
+	{
+		std::string tab(dep * 4, ' ');
+		std::cout <<tab<< "prv :"<<s << std::endl;
+	}
 	bool hasStraggle = false;
 	std::vector<T> straggle;
 	if (s.size() % 2 == 1)
@@ -119,8 +122,11 @@ void mergeInsertSort(std::vector<T > &s, int dep)
 		insertMergeStraggle(a, straggle[0]);
 	}
 	s = a;
-	std::cout <<tab<< "aft :"<<s << std::endl;
-
+	if (DEBUG)
+	{
+		std::string tab(dep * 4, ' ');
+		std::cout <<tab<< "aft :"<<s << std::endl;
+	}
 	// std::cout << "s : "<<s << std::endl;
 }
 

@@ -69,5 +69,6 @@ int main()
 	// /*b*/a.push_back(39);
 	// a.push_back(44);
 	mergeInsertSort(a);
+	std::cout << a << std::endl;
 	return 0;
 }
