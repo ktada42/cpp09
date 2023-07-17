@@ -1,29 +1,16 @@
 #ifndef P_MERGE_ME_HPP
 #define P_MERGE_ME_HPP
-#include "Pairable.hpp"
+#include "MaxValuedPair.hpp"
 
 std::vector<size_t> getJakobNumbers(size_t limit);
 
 
 //簡単のためにlarger.size() == smaller.size()とする
 template<class Value>
-void insertMerge(std::vector<Value>& larger, std::vector<Value>& smaller)
+void insertMerge(std::vector<Value>& larger, std::vector<Value>& smaller, std::vector<Value>& straggle)
 {
 	assert(larger.size() == smaller.size());
-	if (smaller.size() == 0)
-	{
-		return;
-	}
-	if (DEBUG)
-	{
-		for (size_t i = 0; i < larger.size() - 1; i++)
-		{
-			if (larger[i] > larger[i+1])
-			{
-				throw std::runtime_error("larger > ");
-			}
-		}
-	}
+	if (smaller.size() == 0) return;
 	std::vector<size_t> jakobs = getJakobNumbers(smaller.size());
 	larger.insert(larger.begin(), smaller[0]);
 	size_t prevEndIdx = 0;
@@ -41,21 +28,18 @@ void insertMerge(std::vector<Value>& larger, std::vector<Value>& smaller)
 		prevEndIdx = startIdx;
 		nowRange = nowRange * 2 + 1;
 	}
+	if (straggle.size()!= 0)
+	{
+		assert(straggle.size() == 1);
+		typename std::vector<Value>::iterator it = std::lower_bound(larger.begin(), larger.end(), straggle[0]);
+		larger.insert(it, straggle[0]);
+	}
 }
-
-//refactor 挿入する操作を切り出す
-template<class Value>
-void insertMergeStraggle(std::vector<Value>& a, Value& straggle)
-{
-	typename std::vector<Value>::iterator it = std::lower_bound(a.begin(), a.end(), straggle);
-	a.insert(it, straggle);
-}
-	
 
 template<class T>
-std::vector<Pairable<T> > getPairedVector(const std::vector<T> &s)
+std::vector<MaxValuedPair<T> > getPairedVector(const std::vector<T> &s)
 {
-	typedef Pairable<T> PT;
+	typedef MaxValuedPair<T> PT;
 	assert(s.size()%2 == 0 || s.size() == 1);
 	std::vector<PT> paired;
 	for (size_t i = 0; i < s.size(); i += 2)
@@ -66,7 +50,7 @@ std::vector<Pairable<T> > getPairedVector(const std::vector<T> &s)
 }
 
 template<class T>
-void splitPairedVector(std::vector<Pairable<T> >&s, std::vector<T>& a, std::vector<T>&b)
+void splitPairedVector(std::vector<MaxValuedPair<T> >&s, std::vector<T>& a, std::vector<T>&b)
 {
 	a.clear();
 	b.clear();
@@ -77,9 +61,23 @@ void splitPairedVector(std::vector<Pairable<T> >&s, std::vector<T>& a, std::vect
 	}
 }
 
+template<class T>
+std::vector<T> pollStraggle(std::vector<T> &s)
+{
+	if (s.size() % 2 == 1)
+	{
+		T val = s.back();
+		s.pop_back();
+		std::vector<T> res;
+		res.push_back(val);
+		return res;
+	}
+	return std::vector<T>();
+}
+
 // recursive template instantiation exceeded maximum depth of 1024 errorを避けるためのdummy
 template<class _V>
-void mergeInsertSort(std::vector<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<_V> > > > > > > > > > > > > > > > > &s, int dep)
+void mergeInsertSort(std::vector<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<MaxValuedPair<_V> > > > > > > > > > > > > > > > &s, int dep)
 {
 	(void)s;
 	(void)dep;
@@ -89,45 +87,17 @@ void mergeInsertSort(std::vector<Pairable<Pairable<Pairable<Pairable<Pairable<Pa
 //todo 2冪前提になっている
 //todo 5000より大きいものを弾く
 template<class T>
-void mergeInsertSort(std::vector<T > &s, int dep)
+void mergeInsertSort(std::vector<T> &s, int dep)
 {
-	typedef Pairable<T>  PT;
-	if (s.size() <= 1)
-	{
-		return ;
-	}
-	if (DEBUG)
-	{
-		std::string tab(dep * 4, ' ');
-		std::cout <<tab<< "prv :"<<s << std::endl;
-	}
-	bool hasStraggle = false;
-	std::vector<T> straggle;
-	if (s.size() % 2 == 1)
-	{
-		hasStraggle = true;
-		straggle.push_back(s.back());
-		s.pop_back();
-	}
+	if (s.size() <= 1)return ;
+	typedef MaxValuedPair<T>  PT;
+	std::vector<T> straggle = pollStraggle(s);
  	std::vector<PT> ab = getPairedVector(s);
-	// std::cout <<"ab :"<< ab << std::endl;
 	mergeInsertSort(ab, dep + 1);
 	std::vector<T> a, b;
 	splitPairedVector(ab, a, b);
-	// std::cout << "a : "<<a << std::endl;
-	// std::cout << "b : "<<b << std::endl;
-	insertMerge(a, b);
-	if (hasStraggle)
-	{
-		insertMergeStraggle(a, straggle[0]);
-	}
+	insertMerge(a, b, straggle);
 	s = a;
-	if (DEBUG)
-	{
-		std::string tab(dep * 4, ' ');
-		std::cout <<tab<< "aft :"<<s << std::endl;
-	}
-	// std::cout << "s : "<<s << std::endl;
 }
 
 //vector前提

@@ -1,6 +1,6 @@
 NAME = test
 
-SRCS = main.cpp PmergeMe.cpp debug.cpp Pariable.cpp ComparsionCnt.cpp
+SRCS = main.cpp PmergeMe.cpp debug.cpp MaxValuedPair.cpp ComparsionCnt.cpp
 OBJS = $(SRCS:%.cpp=%.o)
 CXX = c++
 

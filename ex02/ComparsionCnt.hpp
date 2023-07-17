@@ -1,7 +1,7 @@
 #ifndef COMPARSION_CNT_HPP
 #define COMPARSION_CNT_HPP
 
-extern int pairableComparsion;
+extern int comparsionCnt;
 
 void inclimentComparsion();
 int getComparsionCnt();

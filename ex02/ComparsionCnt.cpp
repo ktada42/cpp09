@@ -1,13 +1,13 @@
 #include "ComparsionCnt.hpp"
 
-int pairableComparsion;
+int comparsionCnt;
 
 void inclimentComparsion()
 {
-	pairableComparsion++;
+	comparsionCnt++;
 }
 
 int getComparsionCnt()
 {
-	return pairableComparsion;
+	return comparsionCnt;
 }

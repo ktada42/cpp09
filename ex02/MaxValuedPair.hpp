@@ -18,18 +18,18 @@
 #include "ComparsionCnt.hpp"
 
 template<class Value>
-class Pairable
+class MaxValuedPair
 {
-	Pairable();
+	MaxValuedPair();
 public:
 	int largeVal;
-	std::vector<Value> vals;//size is 1 or 2
-	Pairable(int val);
-	Pairable(const Value &val1, const Value &val2);
-	~Pairable();
-	Pairable(const Pairable& rhs);
-	Pairable& operator=(const Pairable& rhs);
-	bool operator<(const Pairable& rhs) const;
+	std::vector<Value> vals;//size is 2
+	MaxValuedPair(int val);
+	MaxValuedPair(const Value &val1, const Value &val2);
+	~MaxValuedPair();
+	MaxValuedPair(const MaxValuedPair& rhs);
+	MaxValuedPair& operator=(const MaxValuedPair& rhs);
+	bool operator<(const MaxValuedPair& rhs) const;
 	operator int() const;
 	size_t size()const;
 };
@@ -47,21 +47,21 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
 
 
 template<class T>
-std::ostream& operator<<(std::ostream& os, const Pairable<T>& pairable)
+std::ostream& operator<<(std::ostream& os, const MaxValuedPair<T>& pairable)
 {
 	os << "{ "<<pairable.vals<<" }";
 	return os;
 }
 
 template<class Value>
-Pairable<Value>::Pairable()
+MaxValuedPair<Value>::MaxValuedPair()
 {
 	largeVal = -1;
 }
 
 
 template<class Value>
-Pairable<Value>::Pairable(const Value &val1, const Value &val2)
+MaxValuedPair<Value>::MaxValuedPair(const Value &val1, const Value &val2)
 {
 	if (val1 < val2)
 	{
@@ -78,14 +78,14 @@ Pairable<Value>::Pairable(const Value &val1, const Value &val2)
 }
 	
 template<class Value>
-Pairable<Value>::~Pairable()
+MaxValuedPair<Value>::~MaxValuedPair()
 {
 
 }
 
 
 template<class Value>
-Pairable<Value>& Pairable<Value>::operator=(const Pairable<Value>& rhs)
+MaxValuedPair<Value>& MaxValuedPair<Value>::operator=(const MaxValuedPair<Value>& rhs)
 {
 	largeVal = rhs.largeVal;
 	vals = rhs.vals;	
@@ -93,7 +93,7 @@ Pairable<Value>& Pairable<Value>::operator=(const Pairable<Value>& rhs)
 }
 
 template<class Value>
-Pairable<Value>::Pairable(const Pairable<Value>& rhs)
+MaxValuedPair<Value>::MaxValuedPair(const MaxValuedPair<Value>& rhs)
 {
 	*this = rhs;
 }
@@ -101,20 +101,20 @@ Pairable<Value>::Pairable(const Pairable<Value>& rhs)
 
 	
 template<class Value>
-bool Pairable<Value>::operator<(const Pairable<Value>& rhs) const
+bool MaxValuedPair<Value>::operator<(const MaxValuedPair<Value>& rhs) const
 {
 	inclimentComparsion();
 	return (largeVal < rhs.largeVal);
 }
 
 template<class Value>
-Pairable<Value>::operator int() const
+MaxValuedPair<Value>::operator int() const
 {
 	return largeVal;
 }
 
 template<class Value>
-size_t Pairable<Value>::size() const
+size_t MaxValuedPair<Value>::size() const
 {
 	return vals.size();
 }

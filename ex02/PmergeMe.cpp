@@ -17,14 +17,14 @@ std::vector<size_t> getJakobNumbers(size_t limit)
 //vector前提
 void mergeInsertSort(std::vector<int> &a)
 {
-	// std::vector<Pairable<int> > pa;
-	// for (size_t i = 0; i < a.size(); i++)
-	// {
-	// 	pa.push_back(Pairable<int>(a[i]));
-	// }
-	mergeInsertSort(a, 0);
-	// for (size_t i = 0; i < a.size(); i++)
-	// {
-		//a[i] = pa[i].largeVal;
-	// }
+	std::vector<MaxValuedPair<int> > pa;
+	for (size_t i = 0; i < a.size(); i++)
+	{
+		pa.push_back(MaxValuedPair<int>(a[i], -1));
+	}
+	mergeInsertSort(pa, 0);
+	for (size_t i = 0; i < a.size(); i++)
+	{
+		a[i] = pa[i].largeVal;
+	}
 }

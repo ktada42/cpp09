@@ -13,7 +13,7 @@
 #include <iterator>
 #include <algorithm>
 #include "PmergeMe.hpp"
-#include "Pairable.hpp"
+#include "MaxValuedPair.hpp"
 #include "ComparsionCnt.hpp"
 
 
@@ -50,25 +50,25 @@
 int main()
 {
 	std::vector<int> a;
+	for (size_t i = 0; i < 3000; i++)
+	{
+		a.push_back(rand());
+	}
+	std::vector<int> b = a;
 
-	a.push_back(2);
-	a.push_back(55);
-	a.push_back(18);
-	
-	a.push_back(11);
-	a.push_back(3);
-	a.push_back(14);
-	a.push_back(25);
-	a.push_back(32);
-	a.push_back(19);
-	a.push_back(9);
-	
-	// a.push_back(59);
-	// /*b*/a.push_back(7);
-	// a.push_back(10);
-	// /*b*/a.push_back(39);
-	// a.push_back(44);
+	comparsionCnt = 0;
 	mergeInsertSort(a);
-	std::cout << a << std::endl;
+	// std::cout << a << std::endl;
+	std::cout << "cnt : "<<comparsionCnt<< std::endl;
+	comparsionCnt = 0;
+	std::vector<MaxValuedPair<int> > pb;
+	for (size_t i = 0; i < b.size(); i++)
+	{
+		pb.push_back(MaxValuedPair<int>(b[i], -1));
+	}
+	std::sort(pb.begin(), pb.end());
+	std::cout << "cnt : "<<comparsionCnt<< std::endl;
+
+	// std::sort();
 	return 0;
 }
