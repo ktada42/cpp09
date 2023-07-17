@@ -88,10 +88,9 @@ void mergeInsertSort(std::vector<Pairable<Pairable<Pairable<Pairable<Pairable<Pa
 
 //todo 2冪前提になっている
 //todo 5000より大きいものを弾く
-template<class _V>
-void mergeInsertSort(std::vector<Pairable<_V> > &s, int dep)
+template<class T>
+void mergeInsertSort(std::vector<T > &s, int dep)
 {
-	typedef Pairable<_V> T;
 	typedef Pairable<T>  PT;
 	if (s.size() <= 1)
 	{
