@@ -43,6 +43,15 @@ void insertMerge(std::vector<Value>& larger, std::vector<Value>& smaller)
 	}
 }
 
+//refactor 挿入する操作を切り出す
+template<class Value>
+void insertMergeStraggle(std::vector<Value>& a, Value& straggle)
+{
+	typename std::vector<Value>::iterator it = std::lower_bound(a.begin(), a.end(), straggle);
+	a.insert(it, straggle);
+}
+	
+
 template<class T>
 std::vector<Pairable<T> > getPairedVector(const std::vector<T> &s)
 {
@@ -68,8 +77,19 @@ void splitPairedVector(std::vector<Pairable<T> >&s, std::vector<T>& a, std::vect
 	}
 }
 
+// recursive template instantiation exceeded maximum depth of 1024 errorを避けるためのdummy
 template<class _V>
-void mergeInsertSort(std::vector<Pairable<_V> > &s)
+void mergeInsertSort(std::vector<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<Pairable<_V> > > > > > > > > > > > > > > > > &s, int dep)
+{
+	(void)s;
+	(void)dep;
+}
+
+
+//todo 2冪前提になっている
+//todo 5000より大きいものを弾く
+template<class _V>
+void mergeInsertSort(std::vector<Pairable<_V> > &s, int dep)
 {
 	typedef Pairable<_V> T;
 	typedef Pairable<T>  PT;
@@ -77,20 +97,46 @@ void mergeInsertSort(std::vector<Pairable<_V> > &s)
 	{
 		return ;
 	}
-	std::cout << "s :"<<s << std::endl;
+	std::string tab(dep * 4, ' ');
+	std::cout <<tab<< "prv :"<<s << std::endl;
+	bool hasStraggle = false;
+	std::vector<T> straggle;
+	if (s.size() % 2 == 1)
+	{
+		hasStraggle = true;
+		straggle.push_back(s.back());
+		s.pop_back();
+	}
  	std::vector<PT> ab = getPairedVector(s);
-	std::cout <<"ab :"<< ab << std::endl;
-	//mergeInsertSort(ab);
+	// std::cout <<"ab :"<< ab << std::endl;
+	mergeInsertSort(ab, dep + 1);
 	std::vector<T> a, b;
 	splitPairedVector(ab, a, b);
-	std::cout << "a : "<<a << std::endl;
-	std::cout << "b : "<<b << std::endl;
-	//todo aがソートされている前提
+	// std::cout << "a : "<<a << std::endl;
+	// std::cout << "b : "<<b << std::endl;
 	insertMerge(a, b);
+	if (hasStraggle)
+	{
+		insertMergeStraggle(a, straggle[0]);
+	}
 	s = a;
-	std::cout << "s : "<<s << std::endl;
+	std::cout <<tab<< "aft :"<<s << std::endl;
+
+	// std::cout << "s : "<<s << std::endl;
 }
 
 //vector前提
 void mergeInsertSort(std::vector<int> &a);
+
+
+template<class T>void f(std::vector<std::vector<std::vector<std::vector<std::vector<std::vector<std::vector<std::vector<std::vector<std::vector<std::vector<std::vector<std::vector<T> > > > > > > > > > > > > a)
+{
+	(void)a;
+		std::cout << "ok" << std::endl;
+}
+template<class T>void f(std::vector<T> a)
+{
+	(void)a;
+	f(std::vector<std::vector<T> >());
+}
 #endif // P_MERGE_ME_HPP

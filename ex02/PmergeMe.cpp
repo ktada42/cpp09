@@ -22,7 +22,7 @@ void mergeInsertSort(std::vector<int> &a)
 	{
 		pa.push_back(Pairable<int>(a[i]));
 	}
-	mergeInsertSort(pa);
+	mergeInsertSort(pa, 0);
 	for (size_t i = 0; i < a.size(); i++)
 	{
 		a[i] = pa[i].largeVal;

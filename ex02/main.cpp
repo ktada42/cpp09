@@ -50,23 +50,24 @@
 int main()
 {
 	std::vector<int> a;
-	a.push_back(10);
-	/*b*/a.push_back(2);
-	a.push_back(14);
-	/*b*/a.push_back(11);
-	a.push_back(18);
-	/*b*/a.push_back(3);
-	a.push_back(25);
-	/*b*/a.push_back(9);
-	a.push_back(32);
-	/*b*/a.push_back(19);
-	
-	a.push_back(44);
-	/*b*/a.push_back(7);
+
+	a.push_back(2);
 	a.push_back(55);
-	/*b*/a.push_back(39);
-	a.push_back(59);
-	/*b*/a.push_back(49);
+	a.push_back(18);
+	
+	a.push_back(11);
+	a.push_back(3);
+	a.push_back(14);
+	a.push_back(25);
+	a.push_back(32);
+	a.push_back(19);
+	a.push_back(9);
+	
+	// a.push_back(59);
+	// /*b*/a.push_back(7);
+	// a.push_back(10);
+	// /*b*/a.push_back(39);
+	// a.push_back(44);
 	mergeInsertSort(a);
 	return 0;
 }
