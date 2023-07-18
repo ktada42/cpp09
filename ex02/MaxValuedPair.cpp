@@ -2,9 +2,18 @@
 
 
 
+namespace mergeInsertByVector{
+	template<>
+	MaxValuedPair<int>::MaxValuedPair(int val) : largeVal(val)
+	{
+		vals.push_back(val);
+	}
+};
 
-template<>
-MaxValuedPair<int>::MaxValuedPair(int val) : largeVal(val)
-{
-	vals.push_back(val);
-}
+namespace mergeInsertByList{
+	template<>
+	MaxValuedPair<int>::MaxValuedPair(int val) : largeVal(val)
+	{
+		vals.push_back(val);
+	}
+};

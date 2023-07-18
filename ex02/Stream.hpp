@@ -1,4 +1,9 @@
+
+#ifndef STREAM_HPP
+#define STREAM_HPP
+
 #include <vector>
+#include <list>
 #include <iostream>
 #include <string>
 #include <ctype.h>
@@ -12,18 +17,16 @@
 #include <exception>
 #include <iterator>
 #include <algorithm>
-#include "PmergeMe.hpp"
-#include "MaxValuedPair.hpp"
-#include "ComparsionCnt.hpp"
 
-int main()
+template<class T>
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec)
 {
-	std::vector<int> a;
-	for (size_t i = 0; i < 3000; i++)
+	for (size_t i = 0; i < vec.size(); i++)
 	{
-		a.push_back(rand());
+		if (i != 0)os<<" ";
+		os<<vec[i];
 	}
-	testMergeInsertSort(a);
-	
-	return 0;
+	return os;
 }
+
+#endif // STREAM_HPP

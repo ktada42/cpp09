@@ -1,4 +1,9 @@
+#ifndef LIST_EXTEND_HPP
+#define LIST_EXTEND_HPP
+
+
 #include <vector>
+#include <list>
 #include <iostream>
 #include <string>
 #include <ctype.h>
@@ -12,18 +17,15 @@
 #include <exception>
 #include <iterator>
 #include <algorithm>
-#include "PmergeMe.hpp"
-#include "MaxValuedPair.hpp"
-#include "ComparsionCnt.hpp"
 
-int main()
+template<class T>T at(std::list<T>& a, size_t i)
 {
-	std::vector<int> a;
-	for (size_t i = 0; i < 3000; i++)
+	typename std::list<T>::iterator it = a.begin();
+	for (size_t j = 0; j < i; j++)
 	{
-		a.push_back(rand());
+		it++;
 	}
-	testMergeInsertSort(a);
-	
-	return 0;
+	return (*it);
 }
+
+#endif // LIST_EXTEND_HPP
