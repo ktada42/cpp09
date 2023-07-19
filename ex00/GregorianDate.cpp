@@ -49,7 +49,9 @@ bool isValidGregorianDate(int year, int month, int day)
 
 std::ostream& operator<<(std::ostream& os, const GregorianDate& date)
 {
-	 os << date.getYear() << "-" << date.getMonth() << "-" << date.getDay();
+	os<<std::setfill('0') <<  std::setw(4) << date.getYear() << "-"
+	  <<std::setfill('0') <<  std::setw(2) << date.getMonth() << "-" 
+	  <<std::setfill('0') <<  std::setw(2) << date.getDay();
     return os;
 }
 
